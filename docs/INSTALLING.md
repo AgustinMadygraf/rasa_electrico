@@ -91,12 +91,3 @@ Deberías ver en pantalla la versión de Rasa instalada y la confirmación de qu
 * **Congelar nuevas dependencias:** `pip freeze > requirements.txt`
 
 ```
-
-### ¿Cómo crearlo rápido desde la terminal?
-Si querés crearlo directamente desde donde estás parado en la consola, podés ejecutar:
-
-```bash
-mkdir -p docs
-nano docs/INSTALLING.md
-
-```
