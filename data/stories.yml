@@ -18,7 +18,7 @@ stories:
   - intent: solicitar_presupuesto
   - action: presupuesto_form
   - active_loop: presupuesto_form
-  - intent: bot_challenge # Corregido de mood_challenge a bot_challenge para evitar error
+  - intent: desafio_bot 
   - action: utter_iamabot
   - action: presupuesto_form
   - active_loop: presupuesto_form

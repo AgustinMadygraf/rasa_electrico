@@ -12,8 +12,8 @@ Este proyecto sigue **Arquitectura Limpia (Clean Architecture)**. Es imperativo 
 3. **Desarrollar:** Implementa respetando las capas definidas en `ARCHITECTURE.md`.
 4. **Entrenar y Validar:** 
    - Ejecuta `rasa data validate` para asegurar consistencia.
-   - Entrena el modelo: `./run.sh train`.
-5. **Probar:** Realiza pruebas de conversación usando `./run.sh shell`.
+   - Entrena el modelo: `rasa train`.
+5. **Probar:** Realiza pruebas de conversación usando `rasa shell`.
 6. **Pruebas Automatizadas:** Todo nuevo caso de uso debe incluir pruebas unitarias (preferiblemente en `actions/tests/`).
 7. **Commit:** Asegúrate de seguir las convenciones de mensajes de commit de la organización.
 

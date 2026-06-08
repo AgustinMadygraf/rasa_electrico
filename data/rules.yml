@@ -3,12 +3,12 @@ version: "3.1"
 rules:
 - rule: Saludar al usuario
   steps:
-  - intent: greet
+  - intent: saludo
   - action: utter_greet
 
 - rule: Despedirse del usuario
   steps:
-  - intent: goodbye
+  - intent: despedida
   - action: utter_goodbye
 
 - rule: Activar formulario de presupuesto
@@ -30,10 +30,15 @@ rules:
 
 - rule: Say 'I am a bot' anytime the user challenges
   steps:
-  - intent: bot_challenge
+  - intent: desafio_bot
   - action: utter_iamabot
 
 - rule: Manejar fallback
   steps:
   - intent: nlu_fallback
   - action: utter_default
+
+- rule: Manejar dirección informada fuera de formulario
+  steps:
+  - intent: informar_direccion
+  - action: utter_confirmar_direccion

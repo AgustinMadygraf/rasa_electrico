@@ -6,7 +6,7 @@ El sistema sigue principios de **Arquitectura Limpia (Clean Architecture)** para
 
 El sistema se divide en capas claras:
 
-1. **Capa de Dominio (Core):**
+1. **Capa de Dominio (Núcleo):**
    - Contiene las reglas de negocio, modelos de datos de presupuestos y definiciones de interfaces (puertos).
    - Es independiente de frameworks y herramientas externas.
 

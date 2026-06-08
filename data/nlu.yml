@@ -1,7 +1,7 @@
 version: "3.1"
 
 nlu:
-- intent: greet
+- intent: saludo
   examples: |
     - hey
     - hello
@@ -9,7 +9,7 @@ nlu:
     - hola
     - buenos días
 
-- intent: goodbye
+- intent: despedida
   examples: |
     - chau
     - bye
@@ -30,17 +30,10 @@ nlu:
     - El trabajo es en calle 12345
     - es en la calle 12345 en Garín
 
-# Mantener ejemplos base existentes si se desea
-- intent: affirm
+- intent: desafio_bot
   examples: |
-    - yes
-    - y
-    - indeed
-    - correcto
+    - ¿eres un bot?
+    - ¿sos un humano?
+    - ¿eres humano o un bot?
+    - ¿estoy hablando con un bot?
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - nunca
-    - no quiero

@@ -1,13 +1,9 @@
 version: "3.1"
 
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+  - saludo
+  - despedida
+  - desafio_bot
   - solicitar_presupuesto
   - informar_direccion
   - nlu_fallback
@@ -30,22 +26,22 @@ forms:
 
 responses:
   utter_greet:
-  - text: "¡Hola! Soy tu asistente para presupuestar instalaciones eléctricas. ¿En qué puedo ayudarte hoy?"
+  - text: "¡Hola! Soy tu asistente virtual especializado en presupuestos de instalaciones eléctricas. Estoy listo para calcular un costo estimado. Para comenzar, ¿podrías indicarme la dirección donde realizarás el trabajo?"
 
   utter_goodbye:
-  - text: "¡Hasta luego! Si necesitas otro presupuesto, solo escríbeme."
+  - text: "¡Hasta luego! Quedo a disposición si necesitas realizar otro presupuesto."
 
   utter_iamabot:
-  - text: "Soy un asistente presupuestador especializado en instalaciones eléctricas."
+  - text: "Soy un asistente presupuestador diseñado para facilitar la estimación de costos en proyectos eléctricos."
 
   utter_pedir_direccion:
-  - text: "Para comenzar, por favor indícame la dirección del lugar donde se realizará el trabajo."
+  - text: "Para realizar una estimación precisa, por favor indícame la dirección del lugar donde se llevará a cabo la instalación."
 
   utter_confirmar_direccion:
-  - text: "Perfecto, he registrado la dirección: {direccion_trabajo}. Procederé a calcular la distancia y el presupuesto."
+  - text: "Dirección registrada: {direccion_trabajo}. Procederé con el cálculo del presupuesto estimado."
 
   utter_default:
-  - text: "Lo siento, no entendí bien. ¿Podrías reformular tu pregunta o decirme si deseas solicitar un presupuesto?"
+  - text: "Lo siento, no he logrado comprender tu solicitud. ¿Podrías reformularla o indicarme si deseas solicitar un presupuesto eléctrico?"
 
 actions:
   - action_calcular_presupuesto
