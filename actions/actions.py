@@ -1,27 +1,33 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
+# Path: actions/actions.py
 
+from typing import Any, Text, List, Dict
+from rasa_sdk import Action, Tracker  # type: ignore
+from rasa_sdk.executor import CollectingDispatcher  # type: ignore
+from rasa_sdk.types import DomainDict  # type: ignore
+from src.infraestructura.factoria import FactoriaServicios
 
-# This is a simple example for a custom action which utters "Hello World!"
+class AccionPresupuestar(Action):
+    def __init__(self):
+        # La acción orquesta la obtención de dependencias
+        controlador = FactoriaServicios.crear_controlador_presupuestador()
+        self.controlador = controlador
 
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
+    def name(self) -> Text:
+        return 'action_calcular_presupuesto'
+
+    async def run(self, dispatcher: CollectingDispatcher,
+                  tracker: Tracker,
+                  domain: DomainDict) -> List[Dict[Text, Any]]:
+
+        direccion = tracker.get_slot('direccion_trabajo')
+        
+        if not direccion:
+            dispatcher.utter_message(text='Lo siento, no he recibido la dirección del lugar de trabajo.')
+            return []
+
+        resultado = self.controlador.calcular(direccion)
+
+        mensaje = f"Presupuesto estimado: ${resultado['mensaje']}"
+        dispatcher.utter_message(text=mensaje)
+
+        return []
