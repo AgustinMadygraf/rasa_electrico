@@ -2,3 +2,10 @@
 .rasa/
 __pycache__/
 models/*.tar.gz
+.coverage
+
+# Entorno local
+.env
+
+# Tests
+.pytest_cache/
