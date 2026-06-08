@@ -5,6 +5,8 @@ Este archivo contiene las directrices para agentes de IA que operen en este repo
 ## Convenciones de Desarrollo
 - **Framework:** Rasa 3.1+.
 - **Lenguaje:** Python 3.10.
+- **Idioma:** Toda la terminología del código, nombres de archivos y estructura debe estar estrictamente en **español**.
+- **Entorno:** Gestión de variables de entorno mediante archivos `.env` (cargados mediante `src/infraestructura/configuracion/ajustes.py`).
 - **Formato de Datos:** YAML para configuración y datos de entrenamiento.
 
 ## Flujo de Trabajo Recomendado

@@ -9,6 +9,7 @@ El sistema se divide en capas claras:
 1. **Capa de Dominio (Núcleo):**
    - Contiene las reglas de negocio, modelos de datos de presupuestos y definiciones de interfaces (puertos).
    - Es independiente de frameworks y herramientas externas.
+   - **Entidad Presupuesto**: Encapsula la lógica de negocio actual: `1000 + (distancia * 50)`.
 
 2. **Capa de Aplicación (Casos de Uso):**
    - Orquesta el flujo de datos.
@@ -17,6 +18,7 @@ El sistema se divide en capas claras:
 3. **Capa de Infraestructura (Adaptadores):**
    - Implementaciones concretas de los puertos.
    - Aquí reside la integración con **Google Maps API** y cualquier base de datos externa.
+   - **Inyección de Dependencias**: Gestionada centralizadamente mediante `FactoriaServicios` para desacoplar componentes.
    - El Action Server de Rasa actúa como el punto de entrada que conecta el flujo conversacional con esta arquitectura.
 
 ## Abstracción de Servicios Externos

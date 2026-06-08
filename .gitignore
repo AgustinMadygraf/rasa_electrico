@@ -9,3 +9,4 @@ models/*.tar.gz
 
 # Tests
 .pytest_cache/
+docs/TMP.md

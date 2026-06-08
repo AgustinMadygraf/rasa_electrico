@@ -14,7 +14,7 @@ Este proyecto sigue **Arquitectura Limpia (Clean Architecture)**. Es imperativo 
    - Ejecuta `rasa data validate` para asegurar consistencia.
    - Entrena el modelo: `rasa train`.
 5. **Probar:** Realiza pruebas de conversación usando `rasa shell`.
-6. **Pruebas Automatizadas:** Todo nuevo caso de uso debe incluir pruebas unitarias (preferiblemente en `actions/tests/`).
+6. **Pruebas Automatizadas:** Todo nuevo caso de uso debe incluir pruebas unitarias en la carpeta `tests/`, organizadas en `unitarios/` e `integracion/`. Se busca mantener una cobertura superior al 90%.
 7. **Commit:** Asegúrate de seguir las convenciones de mensajes de commit de la organización.
 
 ## Estilo de Código
