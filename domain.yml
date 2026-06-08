@@ -8,26 +8,47 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - solicitar_presupuesto
+  - informar_direccion
+  - nlu_fallback
+
+entities:
+  - direccion
+
+slots:
+  direccion_trabajo:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        intent: informar_direccion
+
+forms:
+  presupuesto_form:
+    required_slots:
+      - direccion_trabajo
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+  - text: "¡Hola! Soy tu asistente para presupuestar instalaciones eléctricas. ¿En qué puedo ayudarte hoy?"
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "¡Hasta luego! Si necesitas otro presupuesto, solo escríbeme."
 
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: "Soy un asistente presupuestador especializado en instalaciones eléctricas."
+
+  utter_pedir_direccion:
+  - text: "Para comenzar, por favor indícame la dirección del lugar donde se realizará el trabajo."
+
+  utter_confirmar_direccion:
+  - text: "Perfecto, he registrado la dirección: {direccion_trabajo}. Procederé a calcular la distancia y el presupuesto."
+
+  utter_default:
+  - text: "Lo siento, no entendí bien. ¿Podrías reformular tu pregunta o decirme si deseas solicitar un presupuesto?"
+
+actions:
+  - action_calcular_presupuesto
 
 session_config:
   session_expiration_time: 60

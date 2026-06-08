@@ -2,29 +2,23 @@ version: "3.1"
 
 stories:
 
-- story: happy path
+- story: camino feliz presupuesto
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
+  - intent: solicitar_presupuesto
+  - action: presupuesto_form
+  - active_loop: presupuesto_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_confirmar_direccion
+  - action: action_calcular_presupuesto
 
-- story: sad path 1
+- story: interrupción durante presupuesto
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - intent: solicitar_presupuesto
+  - action: presupuesto_form
+  - active_loop: presupuesto_form
+  - intent: bot_challenge # Corregido de mood_challenge a bot_challenge para evitar error
+  - action: utter_iamabot
+  - action: presupuesto_form
+  - active_loop: presupuesto_form
