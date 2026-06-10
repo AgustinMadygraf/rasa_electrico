@@ -7,41 +7,76 @@ intents:
   - solicitar_presupuesto
   - informar_direccion
   - nlu_fallback
+  - informar_trabajo
+  - informar_visita
 
 entities:
   - direccion
+  - categoria_trabajo
+  - descripcion_trabajo
+  - fecha_visita
 
 slots:
   direccion_trabajo:
     type: text
     influence_conversation: false
     mappings:
-      - type: from_text
-        intent: informar_direccion
+      - type: from_entity
+        entity: direccion
+  categoria_trabajo:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: categoria_trabajo
+  descripcion_trabajo:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: descripcion_trabajo
+  fecha_visita:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: fecha_visita
 
 forms:
   presupuesto_form:
     required_slots:
       - direccion_trabajo
+      - categoria_trabajo
+      - descripcion_trabajo
+      - fecha_visita
 
 responses:
   utter_greet:
-  - text: "¡Hola! Soy tu asistente virtual especializado en presupuestos de instalaciones eléctricas. Estoy listo para calcular un costo estimado. Para comenzar, ¿podrías indicarme la dirección donde realizarás el trabajo?"
+  - text: "¡Hola! Soy tu asistente virtual. ¿Qué trabajo necesitas realizar?"
+
+  utter_ask_direccion_trabajo:
+  - text: "¿Cuál es la dirección del trabajo?"
+
+  utter_ask_categoria_trabajo:
+  - text: "¿Es una instalación, reparación o urgencia?"
+
+  utter_ask_descripcion_trabajo:
+  - text: "Por favor, dame una breve descripción del trabajo."
+
+  utter_ask_fecha_visita:
+  - text: "¿Cuándo te gustaría que pasemos a visitar el lugar?"
+
+  utter_confirmar_presupuesto:
+  - text: "Datos recibidos. Calculando presupuesto..."
 
   utter_goodbye:
-  - text: "¡Hasta luego! Quedo a disposición si necesitas realizar otro presupuesto."
+  - text: "¡Hasta luego!"
 
   utter_iamabot:
-  - text: "Soy un asistente presupuestador diseñado para facilitar la estimación de costos en proyectos eléctricos."
-
-  utter_pedir_direccion:
-  - text: "Para realizar una estimación precisa, por favor indícame la dirección del lugar donde se llevará a cabo la instalación."
-
-  utter_confirmar_direccion:
-  - text: "Dirección registrada: {direccion_trabajo}. Procederé con el cálculo del presupuesto estimado."
+  - text: "Soy un bot."
 
   utter_default:
-  - text: "Lo siento, no he logrado comprender tu solicitud. ¿Podrías reformularla o indicarme si deseas solicitar un presupuesto eléctrico?"
+  - text: "No te entiendo."
 
 actions:
   - action_calcular_presupuesto
