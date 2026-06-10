@@ -1,8 +1,9 @@
 # Path: src/dominio/entidades/presupuesto.py
 
-from typing import Any
+from typing import Any, Text, Dict
 from dataclasses import dataclass
-from typing import Text, Dict
+from src.dominio.entidades.trabajo import Trabajo
+from src.dominio.entidades.visita import Visita
 
 @dataclass
 class Presupuesto:
@@ -13,40 +14,40 @@ class Presupuesto:
     desglose_costos: Dict[Text, float]
 
     @classmethod
-    def calcular(cls, distancia: float, origen: Text, destino: Text, 
-                 cliente_proporciona_materiales: bool, 
-                 config: Dict[Text, Any]) -> 'Presupuesto':
+    def calcular(cls, trabajo: Trabajo, visita: Visita, 
+                 distancia: float, config: Dict[Text, Any]) -> 'Presupuesto':
         
-        # 1. Costo Base (Logística + Distancia)
-        logistica = config['costos_operativos']['logistica']
-        base = 1000 + (distancia * config['costos_produccion'].get('factor_distancia', 50.0))
+        # 1. Costo Base y Lógica
+        logistica_base = config['costos_operativos']['logistica']
+        base = config['costos_operativos']['costo_base_fijo'] + (distancia * config['costos_produccion'].get('factor_distancia', 50.0))
         
-        # 2. Costo Materiales
-        costo_materiales = 0.0
-        cargo_gestion = 0.0
-        if not cliente_proporciona_materiales:
-            costo_materiales = config['costos_produccion']['materiales_base']
-            cargo_gestion = config['costos_produccion']['costo_gestion_compra']
-            
-        # 3. Mano de Obra, Depreciación
-        mano_de_obra = config['costos_produccion']['mano_de_obra']
+        # 2. Uso de lógica encapsulada en entidades
+        costo_traslado = visita.calcular_costo_traslado(logistica_base, config['nocturnidad'])
+        
+        # 3. Mano de Obra ajustada por complejidad
+        mano_de_obra = config['costos_produccion']['mano_de_obra'] * trabajo.factor_complejidad
+        
+        # 4. Otros costos
+        costo_materiales = config['costos_produccion']['materiales_base']
+        cargo_gestion = config['costos_produccion']['costo_gestion_compra']
         depreciacion = config['costos_operativos']['depreciacion']
+            
+        # 5. Total antes de ganancia
+        subtotal = base + costo_traslado + costo_materiales + cargo_gestion + mano_de_obra + depreciacion
         
-        # 4. Total antes de ganancia
-        subtotal = base + logistica + costo_materiales + cargo_gestion + mano_de_obra + depreciacion
-        
-        # 5. Aplicar ganancia
+        # 6. Aplicar ganancia
         ganancia = subtotal * config['objetivos_financieros']['utilidad_neta_porcentaje']
         costo_total = subtotal + ganancia
         
-        desglose = {
-            "base": base,
-            "logistica": logistica,
-            "materiales": costo_materiales,
-            "gestion_compra": cargo_gestion,
-            "mano_de_obra": mano_de_obra,
-            "depreciacion": depreciacion,
-            "ganancia": ganancia
+        desglose: Dict[Text, float] = {
+            "base": float(base),
+            "logistica": float(costo_traslado),
+            "materiales": float(costo_materiales),
+            "gestion_compra": float(cargo_gestion),
+            "mano_de_obra": float(mano_de_obra),
+            "depreciacion": float(depreciacion),
+            "ganancia": float(ganancia)
         }
         
-        return cls(costo_total=costo_total, distancia=distancia, origen=origen, destino=destino, desglose_costos=desglose)
+        return cls(costo_total=float(costo_total), distancia=float(distancia), origen=config['costos_operativos']['origen_base'], 
+                   destino=visita.direccion_destino, desglose_costos=desglose)
